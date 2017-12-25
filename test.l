@@ -7,10 +7,10 @@
 			return(NUM);	}
 "+"		{	return(ADD);	}
 "-"		{	return(SUB);	}
-"*"		{	return(MUL)}
-"/" 	{	return(DIV)}
-"("		{	return(LB)}
-")"		{	return(RB)}
-"\n"	{	return '\n' ;}
+"*"		{	return(MUL);	}
+"/" 	{	return(DIV);	}
+"("		{	return(LB);		}
+")"		{	return(RB);		}
+"\n"	{	return (CL);	}
 .		{	return yytext[0];}
 %%

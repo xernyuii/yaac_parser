@@ -1,16 +1,63 @@
-%token Realnumber Plus Minus
+%token ADD SUB MUL DIV CR LB RB CL NUM
 %{
 	#include<stdio.h>
 %}
 %%
-statement : 
-	  |	statement expression
-	  |	statement expression '\n'
-	  ;				
-expression : Realnumber Plus Realnumber 
-		{ printf("%d add %d is %d\n",$1,$3,$1+$3);}
-expression : Realnumber Minus Realnumber 
-		{ printf("%d cut %d is %d\n",$1,$3,$1-$3);}
+LINES
+	: LINE
+	| LINES LINE
+	;
+
+LINE
+	: EXPR CL
+	{
+		printf("\n");
+	}
+	;
+
+EXPR 
+	: TERM
+	| EXPR ADD TERM
+	{	
+		$$ = $1 + $3;
+		printf("%d + %d = %d  ", $1, $3, $1+$3);
+	}
+	| EXPR SUB TERM
+	{	
+		$$ = $1 - $3;
+		printf("%d - %d = %d  ", $1, $3, $1-$3);
+	}
+	| SUB TERM
+	{
+		$$ = 0 - $2;
+	}
+
+	;
+
+TERM
+	: PRIME
+	| TERM MUL PRIME
+	{
+		$$ = $1 * $3;
+		printf("%d * %d = %d  ", $1, $3, $1*$3);
+	}
+	| TERM DIV PRIME
+	{	
+		$$ = $1 / $3;
+		printf("%d / %d = %d  ", $1, $3, $1/$3);
+	}
+	;
+
+PRIME
+	: NUM
+	| LB EXPR RB
+	{
+		$$ = $2;
+	}
+
+
+
+
 %%
 int main()
 {
