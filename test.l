@@ -4,9 +4,13 @@
 %option noyywrap
 %%
 [0-9]+		{	yylval = atoi(yytext);
-			return(Realnumber);	}
-"+"		{	return(Plus);	}
-"-"		{	return(Minus);	}
-\n		{	return '\n' ;}
+			return(NUM);	}
+"+"		{	return(ADD);	}
+"-"		{	return(SUB);	}
+"*"		{	return(MUL)}
+"/" 	{	return(DIV)}
+"("		{	return(LB)}
+")"		{	return(RB)}
+"\n"	{	return '\n' ;}
 .		{	return yytext[0];}
 %%
