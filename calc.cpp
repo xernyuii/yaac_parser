@@ -1,6 +1,8 @@
 #include<stdio.h>  
 #include<stdlib.h>  
 #include<ctype.h>  
+#include<iostream>
+using namespace std;
 char token;  
 int exp(void);  
 int term(void);  
@@ -22,10 +24,11 @@ int main(){
     getchar();  
     while(n--){  
     token = getchar();  
+    //std::cout<<token<<" ";
     result = exp();  
     if(token == ';'){  
          getchar();  
-         printf("%d\n",result);  
+         printf("  = %d\n",result);  
        }  
     else error();  
    }  
@@ -38,13 +41,15 @@ int exp(){
     while(token == '+' || token == '-')  {  
                 switch(token){  
                    case '+':match('+');  
-                            temp += term();  
+                            temp += term();
+                            cout<<" + ";  
                             break;  
                    case '-':match('-');  
                             temp -=term();  
+                            cout<<" - "; 
                             break;  
                 }  
-    }  
+    }
     return temp;  
 }  
 int term(){  
@@ -52,27 +57,32 @@ int term(){
     while(token == '*' || token == '/'){  
        switch(token){  
          case '*':match('*');  
-                  temp *= factor();  
+                  temp *= factor();
+                  cout<<" * ";   
                   break;  
          case '/':match('/');  
-                  temp /= factor();  
+                  temp /= factor();
+                  cout<<" / ";   
                   break;  
          }  
-    }  
+    }
     return temp;  
 }  
 int factor(){  
     int temp=0;  
        if(isdigit(token)||token=='-'){  
          if (token!='-') ungetc(token,stdin);  
-         scanf("%d",&temp);  
+         scanf("%d",&temp); 
+         cout<<temp<<" "; 
          token = getchar();  
        }  
        else if(token == '('){  
-            match('(');  
+            match('(');
+            cout<<"( ";
             temp = exp();  
-            match(')');  
+            match(')');
+            cout<<") ";
        }
-       else error();  
+       else error(); 
     return temp;  
 }  

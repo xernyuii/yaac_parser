@@ -27,10 +27,6 @@ EXPR
 		$$ = $1 - $3;
 		printf("%d - %d = %d  ", $1, $3, $1-$3);
 	}
-	| SUB TERM
-	{
-		$$ = 0 - $2;
-	}
 
 	;
 
@@ -54,7 +50,11 @@ PRIME
 	{
 		$$ = $2;
 	}
-
+	| SUB NUM
+	{
+		$$ = - $2;
+	}
+	;
 
 
 
@@ -66,5 +66,5 @@ int main()
 }
 int yyerror(char *msg)
 {
-	printf("Error:%s \n", msg);
+	printf(" ", msg);
 }
